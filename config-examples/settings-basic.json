@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/cli/schemas/settings.json",
+  "_comment": "Basic Gemini CLI configuration for getting started",
+
+  "theme": "Default",
+  "hideTips": false,
+  "hideBanner": false,
+  "vimMode": false,
+
+  "autoAccept": false,
+  "sandbox": false,
+  "checkpointing": true,
+
+  "preferredEditor": "vscode"
+}

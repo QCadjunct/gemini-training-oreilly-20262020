@@ -1,0 +1,25 @@
+{
+  "name": "gemini-cli-training",
+  "version": "1.0.0",
+  "description": "Training course for Google Gemini CLI - Agentic Coding in the Terminal",
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.50.0",
+    "@slidev/theme-seriph": "^0.25.0",
+    "slidev-addon-qrcode": "^1.0.0"
+  },
+  "author": "Kenneth Kousen <ken.kousen@kousenit.com>",
+  "license": "MIT",
+  "keywords": [
+    "gemini",
+    "google",
+    "ai",
+    "cli",
+    "training",
+    "agentic-coding"
+  ]
+}

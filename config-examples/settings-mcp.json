@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/cli/schemas/settings.json",
+  "_comment": "Configuration with MCP servers for extended functionality",
+
+  "theme": "Default",
+  "hideTips": true,
+  "hideBanner": false,
+  "vimMode": false,
+
+  "autoAccept": false,
+  "sandbox": false,
+  "checkpointing": true,
+
+  "preferredEditor": "vscode",
+
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "timeout": 30000,
+      "includeTools": ["list_repos", "get_repo", "list_issues", "create_issue"]
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem", "/path/to/allowed/dir"],
+      "timeout": 10000
+    },
+
+    "postgres": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-postgres"],
+      "env": {
+        "CONNECTION_STRING": "${DATABASE_URL}"
+      },
+      "timeout": 15000
+    }
+  },
+
+  "allowMCPServers": ["github", "filesystem"],
+
+  "excludeMCPServers": []
+}

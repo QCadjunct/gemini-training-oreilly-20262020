@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/cli/schemas/settings.json",
+  "_comment": "Advanced Gemini CLI configuration with all common options",
+
+  "theme": "Default",
+  "hideTips": true,
+  "hideBanner": true,
+  "vimMode": true,
+
+  "autoAccept": false,
+  "sandbox": false,
+  "checkpointing": true,
+
+  "preferredEditor": "vscode",
+
+  "context": {
+    "fileName": ["GEMINI.md", "CONTEXT.md"],
+    "includeDirectories": [],
+    "loadFromIncludeDirectories": false
+  },
+
+  "fileFiltering": {
+    "respectGitIgnore": true,
+    "enableRecursiveFileSearch": true
+  },
+
+  "coreTools": [
+    "read_file",
+    "write_file",
+    "replace",
+    "glob",
+    "shell",
+    "google_web_search",
+    "web_fetch"
+  ],
+
+  "excludeTools": [],
+
+  "summarizeToolOutput": {
+    "enabled": true,
+    "maxTokens": 4096
+  },
+
+  "maxSessionTurns": -1,
+
+  "usageStatisticsEnabled": true,
+
+  "telemetry": {
+    "enabled": false,
+    "logPrompts": false
+  }
+}

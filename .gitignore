@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Slidev build output
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files with secrets
+.env
+.env.local
+
+# Logs
+*.log
+
+# Generated files
+slides.pdf
+slides.pptx

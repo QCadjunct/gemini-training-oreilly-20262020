@@ -1,0 +1,41 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/cli/schemas/settings.json",
+  "_comment": "Safety-focused configuration - restricted tools, sandbox enabled",
+
+  "theme": "Default",
+  "hideTips": false,
+  "hideBanner": false,
+  "vimMode": false,
+
+  "autoAccept": false,
+  "sandbox": true,
+  "checkpointing": true,
+
+  "preferredEditor": "vscode",
+
+  "coreTools": [
+    "read_file",
+    "glob",
+    "google_web_search"
+  ],
+
+  "excludeTools": [
+    "shell",
+    "write_file",
+    "replace"
+  ],
+
+  "fileFiltering": {
+    "respectGitIgnore": true,
+    "enableRecursiveFileSearch": false
+  },
+
+  "maxSessionTurns": 50,
+
+  "usageStatisticsEnabled": false,
+
+  "telemetry": {
+    "enabled": false,
+    "logPrompts": false
+  }
+}
