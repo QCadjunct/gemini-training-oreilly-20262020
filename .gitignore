@@ -1,26 +1,70 @@
 # Dependencies
 node_modules/
+pnpm-lock.yaml
+package-lock.json
 
 # Slidev build output
 dist/
+.slidev/
+
+# AI Assistant local settings
+.claude/
+.gemini/
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
+Desktop.ini
 
 # Environment files with secrets
 .env
-.env.local
+.env.*
+!.env.example
 
 # Logs
 *.log
+logs/
 
-# Generated files
+# Generated presentation files
 slides.pdf
 slides.pptx
+slides-export/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+env/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Java
+target/
+*.class
+*.jar
+*.war
+.gradle/
+build/
+
+# Node/JavaScript
+.npm/
+.yarn/
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+.cache/
