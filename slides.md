@@ -457,12 +457,14 @@ gemini -s "Refactor this entire codebase"
 
 </v-clicks>
 
-```bash
-# Enable checkpointing in settings.json
+```json
+// ~/.gemini/settings.json (user) or .gemini/settings.json (project)
 {
   "checkpointing": true
 }
+```
 
+```bash
 # Restore from checkpoint
 /restore
 
