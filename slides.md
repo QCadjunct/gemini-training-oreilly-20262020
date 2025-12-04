@@ -749,16 +749,16 @@ backgroundSize: cover
 
 ---
 
-# MCP Configuration: GitHub
+# MCP Configuration: Firecrawl
 
 ```json
 {
   "mcpServers": {
-    "github": {
+    "firecrawl": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-github"],
+      "args": ["@modelcontextprotocol/server-firecrawl"],
       "env": {
-        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
       }
     }
   }
@@ -822,7 +822,7 @@ gemini mcp test github
 
 <v-clicks>
 
-- **GitHub** - Repository operations, issues, PRs
+- **Firecrawl** - Web scraping, search, content extraction
 - **PostgreSQL** - Database queries and schema
 - **Filesystem** - Extended file operations
 - **Slack** - Team communication

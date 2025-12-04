@@ -21,5 +21,8 @@
     "cli",
     "training",
     "agentic-coding"
-  ]
+  ],
+  "devDependencies": {
+    "playwright-chromium": "^1.57.0"
+  }
 }

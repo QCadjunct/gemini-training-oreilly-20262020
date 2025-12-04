@@ -32,7 +32,7 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 1. Create a new empty directory:
    ```bash
-   mkdir task-manager && cd task-manager
+   mkdir my-task-manager && cd task-manager
    ```
 
 2. Initialize git:
@@ -47,42 +47,83 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 ### Exercises
 
-1. **Project foundation**:
-   ```
-   Create a Node.js task manager application with:
-   - A Task class with id, title, description, status, and dueDate
-   - Functions to add, remove, update, and list tasks
-   - JSON file storage for persistence
-   - A simple CLI interface using readline
-   ```
 
-2. **Enhanced functionality**:
-   ```
-   Add these features to the task manager:
-   - Filter tasks by status (pending, in-progress, completed)
-   - Sort tasks by due date
-   - Search tasks by title or description
-   - Colored console output for different statuses
-   ```
 
-3. **Testing**:
-   ```
-   Create comprehensive tests for the task manager using Jest:
-   - Unit tests for all Task class methods
-   - Integration tests for file persistence
-   - Edge cases like empty lists, invalid inputs
-   ```
+1.  **Project foundation**:
 
-4. **Documentation**:
-   ```
-   Create a README.md with:
-   - Project description and features
-   - Installation instructions
-   - Usage examples with sample output
-   - API documentation for developers
-   ```
+    ```
 
-5. **Git workflow**:
+    Create a Node.js task manager application with:
+
+    - A Task class with id, title, description, status, and dueDate
+
+    - Functions to add, remove, update, and list tasks
+
+    - JSON file storage for persistence
+
+    - A simple CLI interface using readline
+
+    ```
+
+
+
+    *   **Stretch Goal (if time permits, focus on core foundation first):**
+
+
+
+2.  **Enhanced functionality**:
+
+    ```
+
+    Add these features to the task manager:
+
+    - Filter tasks by status (pending, in-progress, completed)
+
+    - Sort tasks by due date
+
+    - Search tasks by title or description
+
+    - Colored console output for different statuses
+
+    ```
+
+
+
+3.  **Testing**:
+
+    ```
+
+    Create comprehensive tests for the task manager using Jest:
+
+    - Unit tests for all Task class methods
+
+    - Integration tests for file persistence
+
+    - Edge cases like empty lists, invalid inputs
+
+    ```
+
+
+
+4.  **Documentation**:
+
+    ```
+
+    Create a README.md with:
+
+    - Project description and features
+
+    - Installation instructions
+
+    - Usage examples with sample output
+
+    - API documentation for developers
+
+    ```
+
+
+
+5.  **Git workflow**:
    ```
    Help me create a proper commit history:
    1. Commit the initial project structure
@@ -175,7 +216,7 @@ Navigate to the project directory and start Gemini CLI.
 1. **Project overview**:
    ```
    Analyze the architecture of this project and explain the main components.
-   Reference @./src/ to examine the source code.
+   Reference @./src/ (or @. for a flat project like the Python weather app) to examine the source code.
    ```
 
 2. **Technology identification**:
@@ -316,13 +357,11 @@ Use the project from previous labs or choose a new exercise project with existin
 
 1. **Unit test generation**:
    ```
-   Create unit tests for @./src/services/task_service.py with:
+   Create unit tests for a chosen file (e.g., @./src/services/task_service.py for Java/JS or @./app.py for Python) with:
    - Tests for all public methods
    - Edge cases (empty inputs, null values)
    - Mocking of external dependencies
    Use pytest as the testing framework.
-   ```
-   (Adjust file path for your project)
 
 2. **Test coverage analysis**:
    ```
@@ -550,19 +589,31 @@ echo "# Config Test" > README.md
    gemini mcp list
    ```
 
-8. **Configure GitHub MCP** (if you have a GitHub token):
-   ```
-   Help me configure the GitHub MCP server in .gemini/settings.json:
-   - Use the @modelcontextprotocol/server-github package
-   - Set up my GITHUB_TOKEN from environment
-   - Include only repository and issue tools
-   ```
+7.  **Configure Firecrawl MCP**:
 
-9. **Test MCP integration**:
-   If configured:
-   ```
-   Use the GitHub MCP to list my recent repositories
-   ```
+    ```
+
+    Help me configure the Firecrawl MCP server in .gemini/settings.json:
+
+    - Use the @modelcontextprotocol/server-firecrawl package
+
+    - Set up my FIRECRAWL_API_KEY from environment
+
+    - Ensure it allows scraping web content
+
+    ```
+
+
+
+8.  **Test MCP integration**:
+
+    If configured:
+
+    ```
+
+    Use the Firecrawl MCP to search for "latest features of Gemini 3 Pro" and summarize the findings.
+
+    ```
 
 10. **Explore MCP tools**:
     ```
