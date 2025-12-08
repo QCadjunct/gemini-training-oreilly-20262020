@@ -32,7 +32,7 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 1. Create a new empty directory:
    ```bash
-   mkdir my-task-manager && cd task-manager
+   mkdir my-task-manager && cd my-task-manager
    ```
 
 2. Initialize git:
