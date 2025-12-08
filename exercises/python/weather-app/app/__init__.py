@@ -1,4 +1,5 @@
 from flask import Flask
+from flasgger import Swagger
 
 def create_app(config_object=None):
     """Application factory function."""
@@ -7,6 +8,9 @@ def create_app(config_object=None):
     # Load configuration if provided
     if config_object:
         app.config.from_object(config_object)
+
+    # Initialize Swagger
+    swagger = Swagger(app)
 
     # Register Blueprints
     from app.routes.main import main_bp

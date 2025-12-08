@@ -4,7 +4,19 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route("/")
 def home():
-    """Home endpoint with API documentation."""
+    """
+    Home endpoint with API documentation.
+    ---
+    responses:
+      200:
+        description: Returns API metadata and version information
+        examples:
+          application/json: {
+            "name": "Weather API",
+            "version": "1.0.0",
+            "endpoints": { ... }
+          }
+    """
     return jsonify({
         "name": "Weather API",
         "version": "1.0.0",
