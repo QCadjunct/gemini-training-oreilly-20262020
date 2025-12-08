@@ -47,6 +47,36 @@ public class BookService {
         return new ArrayList<>(books.values());
     }
 
+    public List<Book> getAllBooks(int page, int size, String sortBy) {
+        List<Book> allBooks = new ArrayList<>(books.values());
+
+        // Sort
+        allBooks.sort((b1, b2) -> {
+            switch (sortBy.toLowerCase()) {
+                case "title":
+                    return b1.getTitle().compareToIgnoreCase(b2.getTitle());
+                case "author":
+                    return b1.getAuthor().compareToIgnoreCase(b2.getAuthor());
+                case "price":
+                    return b1.getPrice().compareTo(b2.getPrice());
+                case "publisheddate":
+                    return b1.getPublishedDate().compareTo(b2.getPublishedDate());
+                case "genre":
+                    return b1.getGenre().compareToIgnoreCase(b2.getGenre());
+                case "stock":
+                    return Integer.compare(b1.getStock(), b2.getStock());
+                default:
+                    return Long.compare(b1.getId(), b2.getId()); // Default sort by ID
+            }
+        });
+
+        // Paginate
+        int start = Math.min(page * size, allBooks.size());
+        int end = Math.min(start + size, allBooks.size());
+
+        return allBooks.subList(start, end);
+    }
+
     public List<Book> searchByTitle(String query) {
         String lowerQuery = query.toLowerCase();
         return books.values().stream()

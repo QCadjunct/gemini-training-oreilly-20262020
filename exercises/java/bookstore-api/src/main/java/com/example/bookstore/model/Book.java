@@ -1,5 +1,10 @@
 package com.example.bookstore.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -8,12 +13,27 @@ import java.time.LocalDate;
  */
 public class Book {
     private Long id;
+
+    @NotBlank(message = "Title cannot be blank")
     private String title;
+
+    @NotBlank(message = "Author cannot be blank")
     private String author;
+
+    @NotBlank(message = "ISBN cannot be blank")
     private String isbn;
+
+    @NotNull(message = "Price cannot be null")
+    @Min(value = 0, message = "Price must be non-negative")
     private BigDecimal price;
+
+    @PastOrPresent(message = "Published date cannot be in the future")
     private LocalDate publishedDate;
+
+    @NotBlank(message = "Genre cannot be blank")
     private String genre;
+
+    @Min(value = 0, message = "Stock must be non-negative")
     private int stock;
 
     public Book() {}

@@ -2,6 +2,7 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.model.Book;
 import com.example.bookstore.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,11 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public List<Book> getAllBooks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return bookService.getAllBooks(page, size, sortBy);
     }
 
     @GetMapping("/{id}")
@@ -54,7 +58,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
+    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book created = bookService.addBook(
                 book.getTitle(), book.getAuthor(), book.getIsbn(),
                 book.getPrice(), book.getPublishedDate(), book.getGenre(), book.getStock()
@@ -63,7 +67,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody Book book) {
         return bookService.updateBook(id, book)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
