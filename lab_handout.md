@@ -4,8 +4,7 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 ## Table of Contents
 
-0. [Lab 0: Project Creation from Scratch](#lab-0-project-creation-from-scratch)
-1. [Lab 1: First Steps with Gemini CLI](#lab-1-first-steps-with-gemini-cli)
+1. [Lab 1: Getting Started and Project Creation](#lab-1-getting-started-and-project-creation)
 2. [Lab 2: Code Exploration](#lab-2-code-exploration)
 3. [Lab 3: GEMINI.md and Context Management](#lab-3-geminimd-and-context-management)
 4. [Lab 4: Test Generation](#lab-4-test-generation)
@@ -22,11 +21,11 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 ---
 
-## Lab 0: Project Creation from Scratch
+## Lab 1: Getting Started and Project Creation
 
-**Duration**: 20 minutes
+**Duration**: 25 minutes
 
-**Goal**: Create a task manager application from nothing using Gemini CLI
+**Goal**: Get comfortable with Gemini CLI while building a task manager application from scratch
 
 ### Setup
 
@@ -47,83 +46,71 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 ### Exercises
 
+1. **Explore the interface**:
+   ```
+   What are your main capabilities for helping with development?
+   ```
 
+   Then explore the available commands:
+   ```
+   /help
+   ```
+   Review the slash commands before diving in.
 
-1.  **Project foundation**:
+2. **Project foundation**:
+   ```
+   Create a Node.js task manager application with:
+   - A Task class with id, title, description, status, and dueDate
+   - Functions to add, remove, update, and list tasks
+   - JSON file storage for persistence
+   - A simple CLI interface using readline
+   ```
 
-    ```
+3. **Check your work with shell integration**:
+   ```
+   !ls -la
+   ```
+   Use shell commands to see what Gemini created. Observe how the output is displayed.
 
-    Create a Node.js task manager application with:
+4. **Enhanced functionality** *(Stretch Goal - if time permits)*:
+   ```
+   Add these features to the task manager:
+   - Filter tasks by status (pending, in-progress, completed)
+   - Sort tasks by due date
+   - Search tasks by title or description
+   - Colored console output for different statuses
+   ```
 
-    - A Task class with id, title, description, status, and dueDate
+5. **Check context and memory**:
+   ```
+   /memory show
+   ```
+   See what context Gemini has loaded about your project.
 
-    - Functions to add, remove, update, and list tasks
+6. **Testing**:
+   ```
+   Create comprehensive tests for the task manager using Jest:
+   - Unit tests for all Task class methods
+   - Integration tests for file persistence
+   - Edge cases like empty lists, invalid inputs
+   ```
 
-    - JSON file storage for persistence
+7. **Documentation**:
+   ```
+   Create a README.md with:
+   - Project description and features
+   - Installation instructions
+   - Usage examples with sample output
+   - API documentation for developers
+   ```
 
-    - A simple CLI interface using readline
+8. **Keyboard shortcuts**:
+   Before moving to git, try these shortcuts:
+   - `Ctrl+L` to clear the screen
+   - `Ctrl+Y` to toggle YOLO mode (observe the indicator change)
+   - `Ctrl+Y` again to toggle back to default mode
 
-    ```
-
-
-
-    *   **Stretch Goal (if time permits, focus on core foundation first):**
-
-
-
-2.  **Enhanced functionality**:
-
-    ```
-
-    Add these features to the task manager:
-
-    - Filter tasks by status (pending, in-progress, completed)
-
-    - Sort tasks by due date
-
-    - Search tasks by title or description
-
-    - Colored console output for different statuses
-
-    ```
-
-
-
-3.  **Testing**:
-
-    ```
-
-    Create comprehensive tests for the task manager using Jest:
-
-    - Unit tests for all Task class methods
-
-    - Integration tests for file persistence
-
-    - Edge cases like empty lists, invalid inputs
-
-    ```
-
-
-
-4.  **Documentation**:
-
-    ```
-
-    Create a README.md with:
-
-    - Project description and features
-
-    - Installation instructions
-
-    - Usage examples with sample output
-
-    - API documentation for developers
-
-    ```
-
-
-
-5.  **Git workflow**:
+9. **Git workflow**:
    ```
    Help me create a proper commit history:
    1. Commit the initial project structure
@@ -134,63 +121,12 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 
 ### Expected Outcomes
 
+- Understand Gemini CLI's conversational interface
+- Know essential slash commands and keyboard shortcuts
 - Build a functional application from scratch
 - Experience iterative development with AI assistance
 - Practice the full development cycle: concept → code → tests → docs
-- Understand Gemini's file creation and modification capabilities
-
-[← Back to Table of Contents](#table-of-contents)
-
----
-
-## Lab 1: First Steps with Gemini CLI
-
-**Duration**: 10 minutes
-
-**Goal**: Get comfortable with the Gemini CLI interface and basic commands
-
-### Setup
-
-1. Navigate to any existing project directory
-2. Start Gemini CLI: `gemini`
-3. Familiarize yourself with the interface
-
-### Exercises
-
-1. **Basic interaction**:
-   ```
-   What are your main capabilities for helping with development?
-   ```
-
-2. **Slash commands exploration**:
-   ```
-   /help
-   ```
-   Review the available slash commands.
-
-3. **Shell integration**:
-   ```
-   !ls -la
-   ```
-   Try executing a shell command and observe how Gemini processes the output.
-
-4. **Memory commands**:
-   ```
-   /memory show
-   ```
-   See what context (if any) is currently loaded.
-
-5. **Keyboard shortcuts**:
-   - Try `Ctrl+L` to clear the screen
-   - Try `Ctrl+Y` to toggle YOLO mode (observe the indicator change)
-   - Try `Ctrl+Y` again to toggle back to default mode
-
-### Expected Outcomes
-
-- Understand Gemini CLI's conversational interface
-- Know the essential slash commands
 - Be comfortable with shell integration
-- Understand YOLO mode toggle
 
 [← Back to Table of Contents](#table-of-contents)
 
