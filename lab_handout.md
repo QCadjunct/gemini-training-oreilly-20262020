@@ -658,7 +658,7 @@ After completing these labs:
 
 ## Additional Resources
 
-- [Gemini CLI Documentation](https://github.com/google-gemini/gemini-cli)
-- [Google AI Studio](https://aistudio.google.com/) - API keys and playground
-- [MCP Server Registry](https://modelcontextprotocol.io/registry)
-- [Gemini CLI Cheatsheet](https://www.philschmid.de/gemini-cli-cheatsheet)
+- <a href="https://github.com/google-gemini/gemini-cli" target="_blank">Gemini CLI Documentation</a>
+- <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a> - API keys and playground
+- <a href="https://modelcontextprotocol.io/registry" target="_blank">MCP Server Registry</a>
+- <a href="https://www.philschmid.de/gemini-cli-cheatsheet" target="_blank">Gemini CLI Cheatsheet</a>
