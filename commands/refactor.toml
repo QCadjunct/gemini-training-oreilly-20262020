@@ -1,13 +1,10 @@
 # Refactoring Command
 # Place in ~/.gemini/commands/refactor.toml
-# Usage: /refactor (then provide code context)
+# Usage: /refactor @./src/myfile.py
 
-[command]
-name = "refactor"
 description = "Refactor code for improved quality"
 
-[prompt]
-template = """
+prompt = """
 Refactor the provided code following these principles:
 
 ## Code Quality
@@ -42,5 +39,5 @@ Provide the refactored code with:
 - Before/after comparison for significant changes
 - Any trade-offs or considerations
 
-{{input}}
+{{args}}
 """

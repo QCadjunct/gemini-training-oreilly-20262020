@@ -25,8 +25,7 @@ Performs a comprehensive code review focusing on:
 
 **Usage:**
 ```
-/review
-[Then provide the file path or paste the code]
+/review @./src/service.py
 ```
 
 ### /test-gen
@@ -38,8 +37,7 @@ Generates comprehensive unit tests with:
 
 **Usage:**
 ```
-/test-gen
-[Then reference the file: @./src/service.py]
+/test-gen @./src/service.py
 ```
 
 ### /docs
@@ -50,8 +48,7 @@ Creates documentation including:
 
 **Usage:**
 ```
-/docs
-[Then reference the code: @./src/]
+/docs @./src/
 ```
 
 ### /refactor
@@ -63,32 +60,59 @@ Refactors code for improved quality:
 
 **Usage:**
 ```
-/refactor
-[Then provide the code to refactor]
+/refactor @./src/legacy_code.py
 ```
 
 ## Creating Your Own Commands
 
 1. Create a new `.toml` file in `~/.gemini/commands/`
-2. Define the command structure:
+2. Define the command with this structure:
 
 ```toml
-[command]
-name = "my-command"
-description = "What this command does"
+description = "Brief description for /help menu"
 
-[prompt]
-template = """
+prompt = """
 Your prompt template here.
-Use {{input}} to include user input.
+Use {{args}} to include user-provided arguments.
+
+You can also use:
+- @{path/to/file} to embed file contents
+- !{shell command} to include shell output (requires confirmation)
 """
 ```
 
-3. The command will be available as `/my-command` in Gemini CLI
+3. The command will be available as `/filename` in Gemini CLI (without the .toml extension)
+
+## Command Format Reference
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `description` | Optional | One-line description shown in `/help` |
+| `prompt` | Required | The instruction sent to Gemini |
+
+### Injection Methods
+
+- `{{args}}` - Injects user arguments from the command line
+- `@{path}` - Embeds file content or directory listing
+- `!{cmd}` - Executes shell command and injects output
+
+### Example: Git Commit Message Generator
+
+```toml
+description = "Generate a commit message from staged changes"
+
+prompt = """
+Generate a Conventional Commit message from this diff:
+```diff
+!{git diff --staged}
+```
+"""
+```
 
 ## Tips
 
 - Keep command names short and memorable
-- Use `{{input}}` placeholder for user-provided content
+- Use `{{args}}` placeholder for user-provided content
 - Be specific in your prompts for better results
 - Test commands with various input types
+- Use `@{file}` syntax to reference files in your prompts

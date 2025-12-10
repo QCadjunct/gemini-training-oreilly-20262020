@@ -1,13 +1,10 @@
 # Documentation Generation Command
 # Place in ~/.gemini/commands/docs.toml
-# Usage: /docs (then provide file, directory, or context)
+# Usage: /docs @./src/myfile.py
 
-[command]
-name = "docs"
-description = "Generate comprehensive documentation"
+description = "Generate comprehensive documentation for code"
 
-[prompt]
-template = """
+prompt = """
 Generate comprehensive documentation for the provided code:
 
 ## README.md
@@ -41,5 +38,5 @@ Use Markdown format with:
 - Tables for parameters and options
 - Links to related documentation
 
-{{input}}
+{{args}}
 """

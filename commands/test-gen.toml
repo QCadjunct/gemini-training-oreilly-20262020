@@ -1,13 +1,10 @@
 # Test Generation Command
 # Place in ~/.gemini/commands/test-gen.toml
-# Usage: /test-gen (then provide file or function context)
+# Usage: /test-gen @./src/myfile.py
 
-[command]
-name = "test-gen"
 description = "Generate comprehensive unit tests for code"
 
-[prompt]
-template = """
+prompt = """
 Generate comprehensive unit tests for the provided code with:
 
 ## Coverage Requirements
@@ -38,5 +35,5 @@ Generate comprehensive unit tests for the provided code with:
 
 Generate the tests with proper file naming conventions and organize them logically.
 
-{{input}}
+{{args}}
 """

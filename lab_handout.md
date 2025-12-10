@@ -490,13 +490,23 @@ echo "# Config Test" > README.md
    mkdir -p ~/.gemini/commands
    ```
 
-   Then ask Gemini:
-   ```
-   Create a custom command file at ~/.gemini/commands/review.toml that:
-   - Is named "review"
-   - Reviews code for security, performance, and best practices
-   - Accepts a file path as input
-   - Provides structured output with severity levels
+   Then create the file `~/.gemini/commands/review.toml` with:
+   ```toml
+   description = "Review code for security, performance, and best practices"
+
+   prompt = """
+   Review the provided code for:
+   - Security vulnerabilities (injection, credentials, validation)
+   - Performance issues (inefficient algorithms, resource leaks)
+   - Best practices and code quality
+
+   Provide findings with severity levels:
+   - CRITICAL: Must fix before deployment
+   - WARNING: Should fix soon
+   - INFO: Consider improving
+
+   {{args}}
+   """
    ```
 
 5. **Test the custom command**:
@@ -508,14 +518,24 @@ echo "# Config Test" > README.md
    - Inefficient loop
    ```
 
-   Then use your command to review it.
+   Then use your command:
+   ```
+   /review @./sample.py
+   ```
 
 6. **Create a docs command**:
-   ```
-   Create a custom command at ~/.gemini/commands/docs.toml that:
-   - Generates documentation for a given file or directory
-   - Includes function signatures, parameters, return types
-   - Creates markdown output suitable for a README
+   Create the file `~/.gemini/commands/docs.toml` with:
+   ```toml
+   description = "Generate documentation for code"
+
+   prompt = """
+   Generate comprehensive documentation for the provided code:
+   - Function signatures with parameters and return types
+   - Usage examples
+   - Markdown format suitable for a README
+
+   {{args}}
+   """
    ```
 
 ### Part C: MCP Server Integration (10 minutes)
