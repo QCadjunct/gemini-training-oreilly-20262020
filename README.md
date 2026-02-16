@@ -38,15 +38,17 @@ gemini-training/
 │   └── java/                    # Java projects
 │       └── bookstore-api/       # Spring Boot REST API
 ├── config-examples/              # Sample configurations
-│   ├── settings.json            # Full settings.json example
-│   └── mcp-servers.json         # MCP server configurations
+│   ├── settings-basic.json      # Starter settings
+│   ├── settings-advanced.json   # Full-featured settings
+│   ├── settings-safe.json       # Safety-focused settings
+│   └── settings-mcp.json        # MCP-focused settings
 ├── gemini-md-examples/          # GEMINI.md templates
-│   ├── python-project.md        # Python project template
+│   ├── python-flask.md          # Python Flask template
 │   ├── java-spring.md           # Spring Boot template
 │   └── javascript-react.md      # React project template
 └── commands/                     # Custom command examples
-    ├── review.md                # Code review command
-    └── test-gen.md              # Test generation command
+    ├── review.toml              # Code review command
+    └── test-gen.toml            # Test generation command
 ```
 
 ## Quick Start
@@ -125,8 +127,16 @@ npm run dev
 ### Advanced Features
 - Model Context Protocol (MCP) servers
 - Extensions system
+- Agent Skills
 - Session management and checkpointing
 - IDE integration (VS Code)
+
+### New Since December 2025
+- Agent Skills are now stable and enabled by default
+- New navigation and planning UX: `/rewind`, `/resume`, `/prompt-suggest`
+- Background shell management via `/shells`
+- Improved session browser and automatic session saving
+- More mature model routing with Gemini 3 Pro/Flash and Auto modes
 
 ## Tips for Success
 
@@ -146,11 +156,11 @@ gemini -i "context"             # Interactive with initial prompt
 
 # Configuration
 gemini --sandbox                # Run in sandbox mode
-gemini --yolo                   # Auto-approve all actions
+gemini --approval-mode yolo     # Auto-approve all actions
 gemini --model gemini-2.5-pro   # Specify model
 
 # Session management
-gemini --resume latest          # Resume last session
+gemini --resume                 # Resume last session
 gemini --list-sessions          # Show available sessions
 ```
 
@@ -164,6 +174,10 @@ gemini --list-sessions          # Show available sessions
 | `/memory refresh` | Reload GEMINI.md files |
 | `/init` | Generate project GEMINI.md |
 | `/chat save <tag>` | Save conversation |
+| `/resume` | Open session browser |
+| `/rewind` | Navigate/revert session history |
+| `/prompt-suggest` | Get prompt ideas for the current task |
+| `/stats` | Show token/quota/session stats |
 | `/restore` | Recover from checkpoint |
 | `/compress` | Summarize conversation |
 

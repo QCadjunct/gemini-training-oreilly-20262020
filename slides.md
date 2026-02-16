@@ -91,7 +91,21 @@ Kousen IT, Inc.
 - **Core Skills**: File operations, shell integration, context management
 - **Customization**: GEMINI.md, custom commands, settings.json
 - **Safety**: Sandbox mode, approval policies, checkpointing
-- **Advanced**: MCP integration, extensions, session management
+- **Advanced**: MCP integration, skills/extensions, session management
+
+</v-clicks>
+
+---
+
+# What's New Since Dec 2025
+
+<v-clicks>
+
+- **Agent Skills** are now stable and enabled by default
+- **New commands**: `/rewind`, `/resume`, `/prompt-suggest`, `/stats`, `/shells`
+- **Background shells** for long-running terminal workflows
+- **MCP improvements**: OAuth consent and MCP resources via `@server://...`
+- **Latest stable track**: Gemini CLI `0.28.x`
 
 </v-clicks>
 
@@ -160,7 +174,7 @@ Kousen IT, Inc.
 - **npm** (recommended): `npm install -g @google/gemini-cli`
 - **npx** (no install): `npx @google/gemini-cli`
 - Verify: `gemini --version`
-- Current version: 0.19.x
+- Current version: 0.28.x
 
 </v-clicks>
 
@@ -301,20 +315,31 @@ gemini "Analyze the architecture in @./src/"
 
 ---
 
-# Slash Commands: Sessions
+# Slash Commands: Workflow
 
 <v-clicks>
 
 - `/init` - Generate project GEMINI.md
-- `/chat save <tag>` - Save conversation
-- `/compress` - Summarize conversation
+- `/prompt-suggest` - Generate stronger prompts
+- `/stats` - Session and quota metrics
+
+</v-clicks>
+
+---
+
+# Slash Commands: Session Control
+
+<v-clicks>
+
+- `/resume` - Open session browser
+- `/rewind` - Navigate and optionally revert history
 - `/restore` - Recover from checkpoint
 
 </v-clicks>
 
 ---
 
-# Slash Commands in Action
+# Slash Commands in Action (Context)
 
 ```bash
 # Show what context is loaded
@@ -326,11 +351,23 @@ gemini "Analyze the architecture in @./src/"
 # Generate a GEMINI.md for current project
 /init
 
-# Save current conversation
-/chat save feature-implementation
+# Suggest stronger prompt wording
+/prompt-suggest
+```
 
-# Compress long conversation
-/compress
+---
+
+# Slash Commands in Action (Sessions)
+
+```bash
+# Open session browser
+/resume
+
+# Rewind through recent interactions
+/rewind
+
+# Restore from checkpoint list
+/restore
 ```
 
 ---
@@ -352,6 +389,7 @@ gemini "Analyze the architecture in @./src/"
 <v-clicks>
 
 - `Ctrl+Y` - Toggle auto-approval (YOLO mode)
+- `Shift+Tab` - Cycle approval mode (default/auto_edit/plan)
 - `Ctrl+C` - Cancel current operation
 - `Ctrl+D` - Exit Gemini CLI
 
@@ -419,7 +457,7 @@ gemini
 gemini --approval-mode auto_edit
 
 # Auto-approve everything (YOLO mode)
-gemini --yolo
+gemini --approval-mode yolo
 # Or use Ctrl+Y in interactive mode
 ```
 
@@ -459,7 +497,7 @@ gemini -s "Refactor this entire codebase"
 
 ```json
 // ~/.gemini/settings.json
-{ "checkpointing": { "enabled": true } }
+{ "general": { "checkpointing": { "enabled": true } } }
 ```
 
 ---
@@ -531,17 +569,14 @@ More specific files override general ones
 
 ```markdown
 # Project: Weather API
-
 ## Tech Stack
 - Backend: Python Flask
 - Database: PostgreSQL
 - Testing: pytest
-
 ## Coding Standards
 - Use type hints for all functions
 - Follow PEP 8 style guide
 - Write docstrings for public APIs
-
 ## Current Focus
 Implementing caching layer for API responses
 ```
@@ -632,14 +667,27 @@ backgroundSize: cover
 
 ```json
 {
-  "theme": "Default",
-  "vimMode": false,
-  "hideTips": false,
-  "hideBanner": false,
-  "autoAccept": false,
-  "sandbox": false,
-  "checkpointing": true,
-  "preferredEditor": "vscode"
+  "general": {
+    "preferredEditor": "vscode",
+    "vimMode": false,
+    "checkpointing": { "enabled": true }
+  }
+}
+```
+
+---
+
+# settings.json Options (UI + Tools)
+
+```json
+{
+  "ui": {
+    "hideTips": false,
+    "hideBanner": false
+  },
+  "tools": {
+    "sandbox": false
+  }
 }
 ```
 
@@ -649,16 +697,18 @@ backgroundSize: cover
 
 <v-clicks>
 
-- **coreTools**: Whitelist available tools
-- **excludeTools**: Blacklist specific tools
+- **tools.allowed**: Whitelist available tools
+- **tools.exclude**: Blacklist specific tools
 - Restrict dangerous operations for safety
 
 </v-clicks>
 
 ```json
 {
-  "coreTools": ["read_file", "write_file", "glob"],
-  "excludeTools": ["shell"]
+  "tools": {
+    "allowed": ["read_file", "write_file", "glob"],
+    "exclude": ["run_shell_command"]
+  }
 }
 ```
 
@@ -676,9 +726,12 @@ backgroundSize: cover
 
 ```json
 {
-  "fileFiltering": {
-    "respectGitIgnore": true,
-    "enableRecursiveFileSearch": true
+  "context": {
+    "fileFiltering": {
+      "respectGitIgnore": true,
+      "respectGeminiIgnore": true,
+      "enableRecursiveFileSearch": true
+    }
   }
 }
 ```
@@ -689,10 +742,12 @@ backgroundSize: cover
 
 | Variable | Purpose |
 |----------|---------|
-| `GEMINI_API_KEY` | API authentication (required) |
+| `GEMINI_API_KEY` | Google AI Studio authentication |
+| `GOOGLE_API_KEY` | Vertex API key authentication |
 | `GEMINI_MODEL` | Override default model |
 | `GOOGLE_CLOUD_PROJECT` | GCP project for Vertex AI |
 | `GOOGLE_CLOUD_LOCATION` | GCP region |
+| `GEMINI_CLI_HOME` | Override Gemini CLI home directory |
 | `HTTP_PROXY` | Network proxy |
 
 ---
@@ -712,7 +767,7 @@ backgroundSize: cover
   "context": {
     "fileName": ["CONTEXT.md", "GEMINI.md"],
     "includeDirectories": ["~/shared-context"],
-    "loadFromIncludeDirectories": true
+    "loadMemoryFromIncludeDirectories": true
   }
 }
 ```
@@ -792,13 +847,25 @@ backgroundSize: cover
 gemini mcp list
 
 # Add a new MCP server
-gemini mcp add github
+gemini mcp add github npx -y @modelcontextprotocol/server-github
 
 # Remove an MCP server
 gemini mcp remove github
+```
 
-# Test MCP server connection
-gemini mcp test github
+---
+
+# Managing MCP Auth/Refresh
+
+```bash
+# List MCP tools/resources from inside session
+/mcp list
+
+# Authenticate with OAuth-enabled MCP server
+/mcp auth github
+
+# Refresh MCP tools/resources
+/mcp refresh
 ```
 
 ---
@@ -811,8 +878,18 @@ gemini mcp test github
 - **args**: Command arguments
 - **env**: Environment variables
 - **cwd**: Working directory
+
+</v-clicks>
+
+---
+
+# MCP Server Options (Advanced)
+
+<v-clicks>
+
 - **timeout**: Startup timeout in ms
 - **includeTools/excludeTools**: Filter available tools
+- **trust**: Bypass tool confirmation for this server
 
 </v-clicks>
 
@@ -871,18 +948,15 @@ gemini extensions enable my-extension
 
 ```toml
 # ~/.gemini/commands/review.toml
-[command]
-name = "review"
 description = "Review code for issues"
 
-[prompt]
-template = """
+prompt = """
 Review the following code for:
 - Security vulnerabilities
 - Performance issues
 - Best practices violations
 
-{{content}}
+{{args}}
 """
 ```
 
@@ -900,7 +974,7 @@ Review the following code for:
 
 ```bash
 # Resume the latest session
-gemini --resume latest
+gemini --resume
 
 # Resume by index
 gemini --resume 3
@@ -1125,6 +1199,134 @@ image: https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0
 backgroundSize: cover
 ---
 
+# Optional Advanced Module
+
+<v-clicks>
+
+- Designed for teams moving from personal usage to production workflows
+- Can be taught live or assigned as follow-up practice
+- Focus areas: auth strategy, governance, skills/MCP, CI automation
+
+</v-clicks>
+
+---
+
+# Authentication Matrix (Team Use)
+
+<v-clicks>
+
+- **Login with Google**: Best default for local interactive usage
+- **`GEMINI_API_KEY`**: Simple personal/team scripts via AI Studio
+- **Vertex + ADC**: Enterprise cloud projects and IAM-managed access
+- **Service account credentials**: CI/CD and headless automation
+
+</v-clicks>
+
+---
+
+# Auth Quick Checks
+
+```bash
+# API key route
+export GEMINI_API_KEY="..."
+gemini
+
+# Vertex route (ADC)
+unset GEMINI_API_KEY GOOGLE_API_KEY
+gcloud auth application-default login
+export GOOGLE_CLOUD_PROJECT="my-project"
+export GOOGLE_CLOUD_LOCATION="us-central1"
+gemini
+```
+
+---
+
+# Governance: Approval and Policies
+
+<v-clicks>
+
+- Approval mode controls are per-session safety rails
+- Policies provide durable guardrails across users/projects
+- Keep high-risk tools constrained in team settings
+- Prefer explicit allow/deny patterns over ad-hoc approvals
+
+</v-clicks>
+
+---
+
+# Governance: Hooks and Trust
+
+<v-clicks>
+
+- `/hooks list` shows active lifecycle hooks
+- Use hooks for auditing, validation, and policy enforcement
+- Folder trust impacts settings, skills, and context loading
+- Treat untrusted repos with stricter modes and sandboxing
+
+</v-clicks>
+
+---
+
+# Skills + MCP at Scale
+
+<v-clicks>
+
+- Skills package repeatable expert workflows for teams
+- MCP connects external systems (docs, data, browsers, APIs)
+- Resource URIs can be injected via `@server://resource/path`
+- Use `includeTools`/`excludeTools` to narrow risky MCP exposure
+
+</v-clicks>
+
+---
+
+# Skills + MCP Commands
+
+```bash
+# Skills lifecycle
+/skills list
+/skills disable skill-name
+/skills enable skill-name
+
+# MCP visibility and maintenance
+/mcp list
+/mcp auth server-name
+/mcp refresh
+```
+
+---
+
+# Automation Patterns (Non-Interactive)
+
+<v-clicks>
+
+- Prefer `-o json` for machine-readable parsing
+- Use exit codes for pipeline gates
+- Keep prompts deterministic and repo-scoped
+- Store logs/artifacts for auditability
+
+</v-clicks>
+
+---
+
+# CI Example: Gate + Report
+
+```bash
+gemini -o json "Review @./src/ for security issues" > review.json
+
+if gemini -o json "Run checks and report pass/fail"; then
+  echo "Gate passed"
+else
+  echo "Gate failed" && exit 1
+fi
+```
+
+---
+layout: image-right
+image: https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+backgroundSize: cover
+---
+
 # Best Practices
 
 <div class="text-center mt-20">
@@ -1324,7 +1526,7 @@ gemini -i "context"
 gemini --sandbox
 
 # Auto-approve all tool calls
-gemini --yolo
+gemini --approval-mode yolo
 
 # Auto-approve file edits only
 gemini --approval-mode auto_edit
@@ -1332,17 +1534,29 @@ gemini --approval-mode auto_edit
 
 ---
 
-# Command Reference: Sessions & Output
+# Command Reference: Sessions
 
 ```bash
 # Resume last session
-gemini --resume latest
+gemini --resume
 
 # List available sessions
 gemini --list-sessions
 
+# Delete a session
+gemini --delete-session 2
+```
+
+---
+
+# Command Reference: Output
+
+```bash
 # JSON output for scripting
 gemini -o json "prompt"
+
+# Streaming JSON events
+gemini -o stream-json "prompt"
 
 # Debug mode
 gemini -d

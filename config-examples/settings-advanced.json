@@ -1,52 +1,60 @@
 {
-  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/cli/schemas/settings.json",
-  "_comment": "Advanced Gemini CLI configuration with all common options",
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+  "_comment": "Advanced Gemini CLI configuration with current settings schema",
 
-  "theme": "Default",
-  "hideTips": true,
-  "hideBanner": true,
-  "vimMode": true,
-
-  "autoAccept": false,
-  "sandbox": false,
-  "checkpointing": true,
-
-  "preferredEditor": "vscode",
-
+  "general": {
+    "preferredEditor": "vscode",
+    "vimMode": true,
+    "defaultApprovalMode": "default",
+    "checkpointing": {
+      "enabled": true
+    }
+  },
+  "ui": {
+    "hideTips": true,
+    "hideBanner": true,
+    "showMemoryUsage": true,
+    "autoThemeSwitching": true
+  },
+  "model": {
+    "maxSessionTurns": -1,
+    "summarizeToolOutput": {
+      "run_shell_command": {
+        "tokenBudget": 4096
+      }
+    }
+  },
   "context": {
-    "fileName": ["GEMINI.md", "CONTEXT.md"],
+    "fileName": [
+      "GEMINI.md",
+      "CONTEXT.md"
+    ],
     "includeDirectories": [],
-    "loadFromIncludeDirectories": false
+    "loadMemoryFromIncludeDirectories": false,
+    "fileFiltering": {
+      "respectGitIgnore": true,
+      "respectGeminiIgnore": true,
+      "enableRecursiveFileSearch": true,
+      "enableFuzzySearch": true,
+      "customIgnoreFilePaths": []
+    }
   },
-
-  "fileFiltering": {
-    "respectGitIgnore": true,
-    "enableRecursiveFileSearch": true
+  "tools": {
+    "sandbox": false,
+    "allowed": [
+      "read_file",
+      "read_many_files",
+      "write_file",
+      "replace",
+      "glob",
+      "search_file_content",
+      "run_shell_command",
+      "google_web_search",
+      "web_fetch"
+    ],
+    "exclude": []
   },
-
-  "coreTools": [
-    "read_file",
-    "write_file",
-    "replace",
-    "glob",
-    "shell",
-    "google_web_search",
-    "web_fetch"
-  ],
-
-  "excludeTools": [],
-
-  "summarizeToolOutput": {
-    "enabled": true,
-    "maxTokens": 4096
-  },
-
-  "maxSessionTurns": -1,
-
-  "usageStatisticsEnabled": true,
-
-  "telemetry": {
-    "enabled": false,
-    "logPrompts": false
+  "privacy": {
+    "usageStatisticsEnabled": true
   }
 }

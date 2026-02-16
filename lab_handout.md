@@ -10,6 +10,7 @@ This document contains hands-on exercises for learning to use Gemini CLI for pro
 4. [Lab 4: Test Generation](#lab-4-test-generation)
 5. [Lab 5: Configuration and Safety](#lab-5-configuration-and-safety)
 6. [Lab 6: Advanced Features](#lab-6-advanced-features)
+7. [Lab 7: Optional Team Adoption Module](#lab-7-optional-team-adoption-module)
 
 ## Prerequisites
 
@@ -376,6 +377,7 @@ echo "# Config Test" > README.md
 2. **Create project settings**:
    ```
    Create a .gemini/settings.json file with:
+   - Use the current nested schema sections (general/ui/tools)
    - Vim mode enabled
    - Checkpointing enabled
    - Sandbox mode disabled
@@ -385,8 +387,8 @@ echo "# Config Test" > README.md
 3. **Tool restrictions**:
    ```
    Update settings.json to:
-   - Exclude the shell tool for safety
-   - Only allow read_file, write_file, and glob tools
+   - Exclude the run_shell_command tool for safety
+   - Use tools.allowed to only allow read_file, write_file, and glob tools
    ```
 
 4. **Test sandbox mode**:
@@ -413,7 +415,7 @@ echo "# Config Test" > README.md
 
    Then:
    ```
-   /restore list
+   /restore
    ```
    View available checkpoints.
 
@@ -427,7 +429,7 @@ echo "# Config Test" > README.md
 
    ```bash
    # Compare with YOLO mode
-   gemini --yolo
+   gemini --approval-mode yolo
    ```
 
    Try creating files and observe the difference.
@@ -476,16 +478,24 @@ echo "# Config Test" > README.md
 
 3. **Resume session**:
    ```bash
-   gemini --resume latest
+   gemini --resume
    ```
    Continue where you left off:
    ```
    Add a power function to the calculator and update the tests
    ```
 
+4. **Session browser and rewind**:
+   In interactive mode, run:
+   ```
+   /resume
+   /rewind
+   ```
+   Review what each workflow enables and when you'd prefer one over the other.
+
 ### Part B: Custom Commands (10 minutes)
 
-4. **Create a review command**:
+5. **Create a review command**:
    ```bash
    mkdir -p ~/.gemini/commands
    ```
@@ -509,7 +519,7 @@ echo "# Config Test" > README.md
    """
    ```
 
-5. **Test the custom command**:
+6. **Test the custom command**:
    In a new session, create a file to review:
    ```
    Create a file called sample.py with some intentionally problematic code:
@@ -523,7 +533,7 @@ echo "# Config Test" > README.md
    /review @./sample.py
    ```
 
-6. **Create a docs command**:
+7. **Create a docs command**:
    Create the file `~/.gemini/commands/docs.toml` with:
    ```toml
    description = "Generate documentation for code"
@@ -540,12 +550,12 @@ echo "# Config Test" > README.md
 
 ### Part C: MCP Server Integration (10 minutes)
 
-7. **List available MCP servers**:
+8. **List available MCP servers**:
    ```bash
    gemini mcp list
    ```
 
-7.  **Configure Firecrawl MCP**:
+9.  **Configure Firecrawl MCP**:
 
     ```
 
@@ -561,7 +571,7 @@ echo "# Config Test" > README.md
 
 
 
-8.  **Test MCP integration**:
+10.  **Test MCP integration**:
 
     If configured:
 
@@ -571,48 +581,54 @@ echo "# Config Test" > README.md
 
     ```
 
-10. **Explore MCP tools**:
+11. **Explore MCP tools**:
     ```
     What MCP tools are available in this session?
     Show me an example of using one of them.
     ```
 
+12. **Prompt quality booster**:
+    ```
+    /prompt-suggest
+    ```
+    Ask Gemini for 3 stronger variants of your last MCP prompt and compare the results.
+
 ### Part D: Output Formats (5 minutes)
 
-11. **JSON output for scripting**:
+13. **JSON output for scripting**:
     ```bash
     gemini -o json "List the files in current directory and describe each"
     ```
 
     Observe the structured output format.
 
-12. **Stream JSON**:
+14. **Stream JSON**:
     ```bash
     gemini -o stream-json "Explain the concept of microservices architecture"
     ```
 
     Watch the real-time streaming output.
 
-13. **Piped workflows**:
+15. **Piped workflows**:
     ```bash
     echo "What are the top 5 Python web frameworks?" | gemini -o json
     ```
 
 ### Part E: Extensions (optional, 5 minutes)
 
-14. **List extensions**:
+16. **List extensions**:
     ```bash
     gemini --list-extensions
     ```
 
-15. **Create a simple extension**:
+17. **Create a simple extension**:
     ```
     Help me create a basic extension at ~/.gemini/extensions/my-tools/
     that adds a custom tool for formatting code.
     Include the gemini-extension.json configuration.
     ```
 
-16. **Enable specific extensions**:
+18. **Enable specific extensions**:
     ```bash
     gemini -e my-tools "Format the code in @./src/"
     ```
@@ -625,6 +641,109 @@ After completing this lab:
 - Configure and use MCP servers
 - Use output formats for automation
 - Understand the extension system
+
+[← Back to Table of Contents](#table-of-contents)
+
+---
+
+## Lab 7: Optional Team Adoption Module
+
+**Duration**: 30-45 minutes (optional / take-home)
+
+**Goal**: Practice production-oriented workflows for authentication strategy, governance, skills/MCP controls, and CI automation.
+
+### Part A: Authentication Strategy (10 minutes)
+
+1. **Compare auth options**:
+   Create a short matrix in `AUTH_NOTES.md` that compares:
+   - Login with Google
+   - `GEMINI_API_KEY`
+   - Vertex AI with ADC
+   - Service account credentials for CI
+
+   Include when each is preferred and one drawback.
+
+2. **Validate one non-default path**:
+   Choose one of these:
+   - Vertex path (`GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`)
+   - API-key path (`GEMINI_API_KEY`)
+
+   Then run:
+   ```bash
+   gemini --version
+   gemini --list-sessions
+   ```
+   Confirm your environment is usable with the chosen auth setup.
+
+### Part B: Governance and Safety Controls (10-15 minutes)
+
+3. **Create a team-safe project settings file**:
+   In `.gemini/settings.json`, configure:
+   - `general.defaultApprovalMode` to `auto_edit` or `plan`
+   - `tools.sandbox` enabled
+   - `tools.exclude` includes `run_shell_command`
+   - `general.checkpointing.enabled` set to `true`
+
+4. **Inspect hooks and policy behavior**:
+   In interactive mode, run:
+   ```
+   /hooks list
+   /policies list
+   ```
+   Ask Gemini to explain what each active control does and which risks it reduces.
+
+### Part C: Skills + MCP Hardening (10-15 minutes)
+
+5. **Skills lifecycle drill**:
+   In interactive mode:
+   ```
+   /skills list
+   /skills disable <one-skill-name>
+   /skills enable <one-skill-name>
+   ```
+   Observe how discoverable skills change.
+
+6. **MCP scoping exercise**:
+   Update one MCP server in `.gemini/settings.json` to:
+   - Add `includeTools` for only the tools you need
+   - Add `excludeTools` for at least one sensitive tool
+
+   Then run:
+   ```bash
+   gemini mcp list
+   ```
+   In interactive mode:
+   ```
+   /mcp list
+   /mcp refresh
+   ```
+
+7. **MCP resource prompt practice**:
+   If your MCP server exposes resources, use one URI with `@...` in a prompt and summarize what changed versus a tool-only prompt.
+
+### Part D: CI/Automation Pattern (10 minutes)
+
+8. **Create a repeatable automation check**:
+   Add a script snippet to `automation_notes.md`:
+   ```bash
+   gemini -o json "Review @./src/ for security issues" > review.json
+   if gemini -o json "Summarize risk level in one sentence"; then
+     echo "Gemini check completed"
+   else
+     echo "Gemini check failed" && exit 1
+   fi
+   ```
+
+9. **Post-process output**:
+   Parse `review.json` with your preferred tool (`jq`, Node, Python) and extract one field for a simple pass/fail decision.
+
+### Expected Outcomes
+
+After completing this optional lab:
+- Choose the right auth method for local, team, and CI contexts
+- Apply practical governance controls with settings, hooks, and policies
+- Restrict MCP/skills behavior to safer team defaults
+- Build a basic non-interactive Gemini CLI automation pattern
 
 [← Back to Table of Contents](#table-of-contents)
 
@@ -662,7 +781,7 @@ After completing this lab:
 **Solution**: Run `/memory refresh` and check file paths
 
 **Issue**: MCP server not connecting
-**Solution**: Check server configuration in settings.json and test with `gemini mcp test`
+**Solution**: Check server configuration in settings.json, then use `gemini mcp list` and `/mcp refresh`
 
 ---
 

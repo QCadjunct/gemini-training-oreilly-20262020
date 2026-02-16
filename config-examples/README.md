@@ -1,11 +1,12 @@
 # Configuration Examples
 
-This folder contains example settings.json configurations for Gemini CLI.
+This folder contains example `settings.json` configurations for Gemini CLI.
+They use the current nested schema (`general`, `ui`, `tools`, `context`, etc.).
 
 ## Files
 
 ### settings-basic.json
-Minimal configuration for beginners. Enables checkpointing for safety while keeping all other features at their defaults.
+Minimal configuration for beginners. Enables checkpointing for safety while keeping most other features near defaults.
 
 **Use when**: Getting started with Gemini CLI
 
@@ -13,19 +14,19 @@ Minimal configuration for beginners. Enables checkpointing for safety while keep
 Full-featured configuration with:
 - Vim mode enabled
 - Tips and banner hidden for cleaner interface
-- Tool output summarization
-- File filtering with gitignore respect
-- All core tools enabled
+- Tool output summarization for shell output
+- File filtering with `.gitignore` and `.geminiignore`
+- Explicit tool allow/exclude lists
 
 **Use when**: You're comfortable with Gemini CLI and want optimal productivity
 
 ### settings-safe.json
 Restricted configuration for maximum safety:
-- Sandbox mode enabled
+- Sandbox mode enabled (`docker`)
 - Only read-only tools allowed
 - Shell and write operations disabled
 - Session turn limits
-- Telemetry disabled
+- YOLO mode disabled
 
 **Use when**: Exploring untrusted codebases or training new users
 
@@ -34,6 +35,7 @@ Configuration with MCP server integrations:
 - GitHub server for repo/issue operations
 - Filesystem server for extended file access
 - PostgreSQL server for database queries
+- Global MCP allow/exclude controls via `mcp.allowed` / `mcp.excluded`
 
 **Use when**: You need to integrate with external tools and services
 
@@ -52,7 +54,7 @@ cp settings-advanced.json ~/.gemini/settings.json
 
 ## Environment Variables
 
-MCP configurations use `${VAR_NAME}` syntax for environment variable substitution. Set these before starting Gemini CLI:
+MCP configurations use `$VAR_NAME` (or `${VAR_NAME}`) syntax for environment variable substitution. Set these before starting Gemini CLI:
 
 ```bash
 export GITHUB_TOKEN="your-github-token"
