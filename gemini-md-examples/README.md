@@ -18,7 +18,7 @@ Context file for Java Spring Boot applications.
 - JUnit 5 testing patterns
 - Maven build commands
 
-### javascript-react.md
+### typescript-react.md
 Context file for React TypeScript applications.
 - React component patterns
 - TypeScript strict mode usage
@@ -96,6 +96,17 @@ project/
 │   └── GEMINI.md          # React-specific rules
 └── backend/
     └── GEMINI.md          # Python-specific rules
+```
+
+### Use .geminiignore
+Create a `.geminiignore` file in your project root alongside your `GEMINI.md` to prevent the CLI from reading unnecessary, generated, or sensitive files:
+
+```text
+node_modules/
+target/
+.env
+dist/
+build/
 ```
 
 ## Verification
