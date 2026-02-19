@@ -170,10 +170,11 @@ Navigate to the project directory and start Gemini CLI.
 
 4. **File reference practice**:
    ```
-   Explain how @./src/routes.py handles incoming requests and
-   what middleware is involved.
+   Explain how the main routing logic handles incoming requests.
+   - Python: @app/routes/weather.py
+   - Java: @src/main/java/com/example/bookstore/controller/BookController.java
+   - JavaScript: @src/taskManager.js
    ```
-   (Adjust the file path for your chosen project)
 
 5. **Architecture documentation**:
    ```
@@ -294,11 +295,16 @@ Use the project from previous labs or choose a new exercise project with existin
 
 1. **Unit test generation**:
    ```
-   Create unit tests for a chosen file (e.g., @./src/services/task_service.py for Java/JS or @./app.py for Python) with:
+   Create unit tests for a chosen file:
+   - Java: @exercises/java/bookstore-api/src/main/java/com/example/bookstore/service/BookService.java using JUnit 5
+   - JavaScript: @exercises/javascript/task-manager/src/taskManager.js using Jest
+   - Python: @exercises/python/weather-app/app/services/weather_service.py using pytest
+
+   Requirements:
    - Tests for all public methods
    - Edge cases (empty inputs, null values)
    - Mocking of external dependencies
-   Use pytest as the testing framework.
+   ```
 
 2. **Test coverage analysis**:
    ```

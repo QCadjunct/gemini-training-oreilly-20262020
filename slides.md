@@ -105,7 +105,7 @@ Kousen IT, Inc.
 - **New commands**: `/rewind`, `/resume`, `/prompt-suggest`, `/stats`, `/shells`
 - **Background shells** for long-running terminal workflows
 - **MCP improvements**: OAuth consent and MCP resources via `@server://...`
-- **Latest stable track**: Gemini CLI `0.28.x`
+- **Latest stable track**: Gemini CLI `0.29.x`
 
 </v-clicks>
 
@@ -174,7 +174,7 @@ Kousen IT, Inc.
 - **npm** (recommended): `npm install -g @google/gemini-cli`
 - **npx** (no install): `npx @google/gemini-cli`
 - Verify: `gemini --version`
-- Current version: 0.28.x
+- Current version: 0.29.x
 
 </v-clicks>
 
