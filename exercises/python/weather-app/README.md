@@ -5,8 +5,8 @@ A simple Flask-based weather API for Gemini CLI training exercises.
 ## Setup
 
 ```bash
-pip install -r requirements.txt
-python app.py
+uv sync
+uv run app.py
 ```
 
 ## API Endpoints

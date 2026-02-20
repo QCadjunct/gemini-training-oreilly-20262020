@@ -1,4 +1,3 @@
-import pytest
 import requests
 from unittest.mock import patch, MagicMock
 from app.services.weather_service import get_weather_data, get_forecast_data, _get_lat_lon_from_city_name

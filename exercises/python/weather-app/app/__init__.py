@@ -10,7 +10,7 @@ def create_app(config_object=None):
         app.config.from_object(config_object)
 
     # Initialize Swagger
-    swagger = Swagger(app)
+    Swagger(app)
 
     # Register Blueprints
     from app.routes.main import main_bp
